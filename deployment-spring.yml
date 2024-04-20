@@ -1,0 +1,43 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+    spec:
+      containers:
+        - name: spring-boot
+          image: azizbk9/spring-image:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/employeemanager?allowPublicKeyRetrieval=true&serverTimezone=UTC"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "root"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "Aziz2022@"
+            - name: SPRING_DATA_SOURCE_DRIVER_CLASS_NAME
+              value: "com.mysql.cj.jdbc.Driver"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  selector:
+    app: spring-boot
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30762  # Choose a node port in the range 30000-32767
+  type: NodePort
