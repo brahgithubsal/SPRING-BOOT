@@ -1,8 +1,8 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spring-boot-deployment
+  namespace: web 
 spec:
   replicas: 1
   selector:
@@ -27,11 +27,14 @@ spec:
               value: "Aziz2022@"
             - name: SPRING_DATA_SOURCE_DRIVER_CLASS_NAME
               value: "com.mysql.cj.jdbc.Driver"
+            - name: CORS_ORIGIN_URL
+              value: http://192.168.49.2:30177
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: spring-boot-service
+  namespace: web
 spec:
   selector:
     app: spring-boot
