@@ -20,10 +20,10 @@ spec:
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: "Aziz2022@"
-	    - name: MYSQL_DATABASE
+            - name: MYSQL_DATABASE
               value: "employeemanager"
----
 
+---
 apiVersion: v1
 kind: Service
 metadata:
